@@ -1,3 +1,7 @@
 .customers {
     margin-top: 20px;
 }
+
+.customers table tr {
+    cursor: pointer;
+}

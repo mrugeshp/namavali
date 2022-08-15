@@ -11,7 +11,7 @@ const CustomerList = (props) => {
     }
 
     return (
-        <table className='table'>
+        <table className='table table-striped table-hover'>
             <thead>
                 <tr>
                     <th>Id</th>
