@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { customersData } from '../../shared/data/staticData'
 
 const CustomerDetail = () => {
@@ -14,6 +14,7 @@ const CustomerDetail = () => {
                 <h4>Date: {customer.date}</h4>
                 <h4>Amount: {customer.amount}</h4>
             </div>
+            <Link to={`/customer/${customer.id}/edit`}>Edit</Link>
         </div>
     )
 }

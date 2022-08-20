@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const MainHeader = () => {
     return (
-        <nav className="navbar navbar-expand-lg bg-light">
+        <nav className="navbar navbar-expand bg-light">
             <div className="container-fluid">
             <a className="navbar-brand" href="/">Namavali</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
