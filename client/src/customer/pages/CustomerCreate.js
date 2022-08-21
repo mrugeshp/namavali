@@ -1,37 +1,13 @@
 import React, { useCallback, useReducer } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Input from '../../shared/FormElements/Input'
 import { VALIDATOR_REQUIRE } from '../../shared/utils/validators'
-
-const formReducer = (state, action) => {
-    switch(action.type) {
-        case "INPUT_CHANGE":
-            let formIsValid = true;
-            for(const inputId in state.inputs) {
-                if (inputId === action.inputId) {
-                    formIsValid = formIsValid && action.isValid
-                } else {
-                    formIsValid = formIsValid && state.inputs[inputId].isValid
-                }
-            }
-            return {
-                ...state,
-                inputs: {
-                    ...state.inputs,
-                    [action.inputId]: {
-                        value: action.value,
-                        isValid: action.isValid
-                    }
-                },
-                isValid: formIsValid
-            }
-        default:
-            return state;
-    }
-}
+import { useForm } from '../../shared/hooks/form-hook'
 
 const CustomerCreate = () => {
-    const [formState, dispatch] = useReducer(formReducer, {
-        inputs: {
+    const navigate = useNavigate();
+    const [formState, inputHandler] = useForm(
+        {
             name: {
                 value: '',
                 isValid: false
@@ -49,19 +25,15 @@ const CustomerCreate = () => {
                 isValid: false
             }
         },
-        isValid: false
-    })
-    const inputInputHandler = useCallback((id, value, isValid) => {
-        dispatch({
-            type: "INPUT_CHANGE",
-            value: value,
-            isValid: isValid,
-            inputId: id
-        })
-    }, []);
+        false
+    )
     const onSubmitHandler = (event) => {
         event.preventDefault()
         console.log(formState.inputs);
+    }
+    const navigateToHome = (event) => {
+        event.preventDefault()
+        navigate('/');
     }
     return (
         <div>
@@ -74,7 +46,7 @@ const CustomerCreate = () => {
                     id="name"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText={"Please enter a valid name."}
-                    onInput={inputInputHandler}
+                    onInput={inputHandler}
                 />
                 <Input
                     type="text"
@@ -83,7 +55,7 @@ const CustomerCreate = () => {
                     id="city"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText={"Please enter a valid city."}
-                    onInput={inputInputHandler}
+                    onInput={inputHandler}
                 />
                 <Input
                     type="date"
@@ -92,7 +64,7 @@ const CustomerCreate = () => {
                     id="date"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText={"Please enter a valid date."}
-                    onInput={inputInputHandler}
+                    onInput={inputHandler}
                 />
                 <Input
                     type="number"
@@ -101,7 +73,7 @@ const CustomerCreate = () => {
                     id="amount"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText={"Please enter a valid amount."}
-                    onInput={inputInputHandler}
+                    onInput={inputHandler}
                 />
                 <div className="col-auto">
                     <button
@@ -111,7 +83,11 @@ const CustomerCreate = () => {
                     >Submit</button>
                 </div>
                 <div className="col-auto">
-                    <button type="button" className="btn btn-light mb-3">Cancel</button>
+                    <button
+                        type="button"
+                        className="btn btn-light mb-3"
+                        onClick={navigateToHome}
+                    >Cancel</button>
                 </div>
             </form>
         </div>

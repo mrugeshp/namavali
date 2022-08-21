@@ -4,7 +4,7 @@ import { customersData } from '../../shared/data/staticData'
 
 const CustomerDetail = () => {
     const customerId = parseInt(useParams().cid);
-    const customer = customersData.find((customer) => customer.id === customerId)
+    const customer = customersData.find((customer) => customer.id === customerId);
     console.log(customer)
     return (
         <div className="container">
